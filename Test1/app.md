@@ -54,6 +54,7 @@ const server = http.createServer((req, res) => {
     // checking if url is '/message' or not
     const body = [];
     req.on("data", (chunk) => {
+      console.log(chunk);
       body.push(chunk);
     });
     req.on("end", () => {
@@ -75,4 +76,22 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3000);
+```
+
+```javascript
+return req.on("end", () => {   // used return because we don't want the code after req.on block to get executed in the same request.
+  const parseBody = Buffer.concat(body).toString();
+  const message = parseBody.split("=")[1];
+  // writeFileSync - Synchronus and block the next code to get executed.
+  // eg. if file size is 100MB then it will take a lot time to write in file and slow down the time.
+
+  // writeFile - Async and dosn't block the code.
+  fs.writeFile("message.txt", message, (err) => {   
+    // Event listener is created for callback implicitly by NodeJs(We don't write)
+    // callback inside writeFile triggered when error occure during writting a file.
+    res.statusCode = 302;
+    res.setHeader("Location", "/");
+    return res.end();
+  });
+});
 ```
