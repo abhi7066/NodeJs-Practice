@@ -36,15 +36,15 @@ const requestHandler = (req, res) => {
     res.end();
 };
 
-module.exports = requestHandler; // requestHandler is stored in the module.exports which is global object
+// module.exports = requestHandler; // requestHandler is stored in the module.exports which is global object
 
-module.exports = {
-    handler: requestHandler,
-    someText: 'Random test which you want to pass'
-};
+// module.exports = {
+//     handler: requestHandler,
+//     someText: 'Random test which you want to pass'
+// };
 
-module.exports.handler = requestHandler;
-module.exports.someText = 'Random test which you want to pass2';
+// module.exports.handler = requestHandler;
+// module.exports.someText = 'Random test which you want to pass2';
 
 
 exports.handler = requestHandler;
