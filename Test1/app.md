@@ -78,15 +78,18 @@ const server = http.createServer((req, res) => {
 server.listen(3000);
 ```
 
+##### Blocking and non-blocking code
+
 ```javascript
-return req.on("end", () => {   // used return because we don't want the code after req.on block to get executed in the same request.
+return req.on("end", () => {
+  // used return because we don't want the code after req.on block to get executed in the same request.
   const parseBody = Buffer.concat(body).toString();
   const message = parseBody.split("=")[1];
   // writeFileSync - Synchronus and block the next code to get executed.
   // eg. if file size is 100MB then it will take a lot time to write in file and slow down the time.
 
-  // writeFile - Async and dosn't block the code.
-  fs.writeFile("message.txt", message, (err) => {   
+  // writeFile - Async and doesn't block the code.
+  fs.writeFile("message.txt", message, (err) => {
     // Event listener is created for callback implicitly by NodeJs(We don't write)
     // callback inside writeFile triggered when error occure during writting a file.
     res.statusCode = 302;
@@ -95,3 +98,22 @@ return req.on("end", () => {   // used return because we don't want the code aft
   });
 });
 ```
+
+##### Ways of exporting and using module
+
+````javascript
+
+module.exports = requestHandler; // requestHandler is stored in the module.exports which is global object
+
+module.exports = {
+    handler: requestHandler,
+    someText: 'Random test which you want to pass'
+};
+
+module.exports.handler = requestHandler;
+module.exports.someText = 'Random test which you want to pass2';
+
+
+exports.handler = requestHandler;
+exports.someText = 'Random test which you want to pass2';```
+````
