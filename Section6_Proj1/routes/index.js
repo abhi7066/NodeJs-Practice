@@ -10,8 +10,7 @@ router.get('/', (req, res, next)=>{
 });
 
 router.post('/admin', (req, res, next)=>{
-    console.log(req.body);
-    // products.push(req.body);
+    products.push(req.body);
     res.redirect('/users');
 });
 
