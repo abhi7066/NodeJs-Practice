@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const products = [];
+const userData = [];
 
 
 router.get('/', (req, res, next)=>{
@@ -10,13 +10,13 @@ router.get('/', (req, res, next)=>{
 });
 
 router.post('/admin', (req, res, next)=>{
-    products.push(req.body);
+    userData.push(req.body);
     res.redirect('/users');
 });
 
 router.get('/users', (req, res, next)=>{
-    res.render('usersPage', {title: 'User\'s Page'});
-    console.log(products);
+    res.render('usersPage', {title: 'User\'s Page', users: userData});
+    console.log(userData);
 })
 
 module.exports = router;

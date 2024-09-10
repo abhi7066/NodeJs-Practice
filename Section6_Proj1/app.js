@@ -8,16 +8,16 @@ const app = express();
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
 
-app.use(router);
+// Middleware to parse the body of POST requests
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware to parse the body of POST requests
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(router);
 
 app.use((req, res, next)=>{
-    res.send('<h1>Page not found</h1>');
+    res.statusCode(404).send('<h1>Page not found</h1>');
 })
 
 app.listen(3000);

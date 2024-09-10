@@ -2,6 +2,17 @@
 
 <h1>User Details</h1>
 
+<% if(users.length > 0){ %>
+    <% for(let data of users){ %>
+    <ul>
+        <li><%= data.name %></li>
+    </ul>
+    <% } %>
+
+<% }else{ %>
+    <h1>Opps, No user is available</h1>
+<% } %>
+
 </main>
 </body>
 </html>
