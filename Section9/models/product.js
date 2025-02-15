@@ -58,7 +58,7 @@ module.exports = class Product {
           Cart.deleteProduct(id, product.price);
         }
       });
-    });
+    });  
   }
 
   static fetchAll(cb) {
